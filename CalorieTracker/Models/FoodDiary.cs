@@ -21,11 +21,11 @@ namespace CalorieTracker.Models
         }
 
         [ForeignKey("Health_Enthusiast")]
-        public string HealthEnthusiastId { get; set; }
+        public int HealthEnthusiastId { get; set; }
         public Health_Enthusiast Health_Enthusiast { get; set; }
 
         [ForeignKey("FoodItem")]
-        public string FoodId { get; set; }
+        public int FoodId { get; set; }
         public Food FoodItem { get; set; }
     }
 }

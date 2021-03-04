@@ -12,11 +12,22 @@ namespace CalorieTracker.Models
     {
         [Key]
         public int Id { get; set; }
+
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
+
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
+
+        [Display(Name = "Height in Inches")]
         public int Height { get; set; }
+
+        [Display(Name = "Your Starting weight")]
         public int StartingWeight { get; set; }
+
         public int StartingCalories { get; set; }
+
+        [Display(Name = "What is your sex")]
         public string Sex { get; set; }
 
         [ForeignKey("IdentityUser")]

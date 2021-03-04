@@ -7,18 +7,15 @@ using System.Threading.Tasks;
 
 namespace CalorieTracker.Models
 {
-    public class Goals
+    public class NewsLetter
     {
         [Key]
         public int Id { get; set; }
 
-        public int GoalWeight { get; set; }
-        public int GoalCalories { get; set; }
-        public int WeeklyWeight { get; set; }
+        public bool IsSubscribed { get; set; }
 
         [ForeignKey("Health_Enthusiast")]
         public int HealthEnthusiastId { get; set; }
         public Health_Enthusiast Health_Enthusiast { get; set; }
-
     }
 }
