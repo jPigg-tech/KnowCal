@@ -19,16 +19,19 @@ namespace CalorieTracker.Models
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
-        [Display(Name = "Height in Inches")]
+        [Display(Name = "What is your height in inches?")]
         public int Height { get; set; }
 
-        [Display(Name = "Your Starting weight")]
+        [Display(Name = "What is your current weight?")]
         public int StartingWeight { get; set; }
 
-        public int StartingCalories { get; set; }
+        public int? InitialCalorieIntake { get; set; }
 
-        [Display(Name = "What is your sex")]
+        [Display(Name = "What is your sex?")]
         public string Sex { get; set; }
+
+        [Display(Name = "What is your age?")]
+        public int Age { get; set; }
 
         [ForeignKey("IdentityUser")]
         public string IdentityUserId { get; set; }

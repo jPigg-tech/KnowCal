@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace CalorieTracker.Data.Migrations
+namespace CalorieTracker.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210303155645_Initial")]
-    partial class Initial
+    [Migration("20210305010655_CC")]
+    partial class CC
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,167 @@ namespace CalorieTracker.Data.Migrations
                 .HasAnnotation("ProductVersion", "3.1.12")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("CalorieTracker.Models.Food", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CalorieAmmount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FatAmount")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FoodDiaryId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FoodDiaryId1")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FoodDiaryId2")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FoodDiaryId3")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FoodName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProteinAmount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ServingSize")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FoodDiaryId");
+
+                    b.HasIndex("FoodDiaryId1");
+
+                    b.HasIndex("FoodDiaryId2");
+
+                    b.HasIndex("FoodDiaryId3");
+
+                    b.ToTable("Foods");
+                });
+
+            modelBuilder.Entity("CalorieTracker.Models.FoodDiary", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("DailyCaloriesAccumulated")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FoodId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FoodItemId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HealthEnthusiastId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FoodId");
+
+                    b.HasIndex("FoodItemId");
+
+                    b.HasIndex("HealthEnthusiastId");
+
+                    b.ToTable("FoodDiaries");
+                });
+
+            modelBuilder.Entity("CalorieTracker.Models.Goals", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("GoalCalories")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GoalWeight")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HealthEnthusiastId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WeeklyWeight")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HealthEnthusiastId");
+
+                    b.ToTable("Goals");
+                });
+
+            modelBuilder.Entity("CalorieTracker.Models.Health_Enthusiast", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Height")
+                        .HasColumnType("int");
+
+                    b.Property<string>("IdentityUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Sex")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StartingCaloriesPerDay")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StartingWeight")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdentityUserId");
+
+                    b.ToTable("Health_Enthusiasts");
+                });
+
+            modelBuilder.Entity("CalorieTracker.Models.NewsLetter", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("HealthEnthusiastId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsSubscribed")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HealthEnthusiastId");
+
+                    b.ToTable("NewsLetters");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -50,8 +211,8 @@ namespace CalorieTracker.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e0854a12-a63e-4ccb-878c-ab3fbcf4b7aa",
-                            ConcurrencyStamp = "64e7ddbe-2580-4cd7-99f2-959ce1b3f1e5",
+                            Id = "ef9aa558-3679-4953-ada4-0e32ce2c1f4b",
+                            ConcurrencyStamp = "4e2d58c4-f828-4a2f-90c0-dd070bdf7f6a",
                             Name = "Health Enthusiast",
                             NormalizedName = "Health Enthusiast"
                         });
@@ -224,6 +385,69 @@ namespace CalorieTracker.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("CalorieTracker.Models.Food", b =>
+                {
+                    b.HasOne("CalorieTracker.Models.FoodDiary", null)
+                        .WithMany("Breakfast")
+                        .HasForeignKey("FoodDiaryId");
+
+                    b.HasOne("CalorieTracker.Models.FoodDiary", null)
+                        .WithMany("Dinner")
+                        .HasForeignKey("FoodDiaryId1");
+
+                    b.HasOne("CalorieTracker.Models.FoodDiary", null)
+                        .WithMany("Lunch")
+                        .HasForeignKey("FoodDiaryId2");
+
+                    b.HasOne("CalorieTracker.Models.FoodDiary", null)
+                        .WithMany("Snack")
+                        .HasForeignKey("FoodDiaryId3");
+                });
+
+            modelBuilder.Entity("CalorieTracker.Models.FoodDiary", b =>
+                {
+                    b.HasOne("CalorieTracker.Models.Food", "Food")
+                        .WithMany()
+                        .HasForeignKey("FoodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CalorieTracker.Models.Food", "FoodItem")
+                        .WithMany()
+                        .HasForeignKey("FoodItemId");
+
+                    b.HasOne("CalorieTracker.Models.Health_Enthusiast", "Health_Enthusiast")
+                        .WithMany()
+                        .HasForeignKey("HealthEnthusiastId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CalorieTracker.Models.Goals", b =>
+                {
+                    b.HasOne("CalorieTracker.Models.Health_Enthusiast", "Health_Enthusiast")
+                        .WithMany()
+                        .HasForeignKey("HealthEnthusiastId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CalorieTracker.Models.Health_Enthusiast", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
+                        .WithMany()
+                        .HasForeignKey("IdentityUserId");
+                });
+
+            modelBuilder.Entity("CalorieTracker.Models.NewsLetter", b =>
+                {
+                    b.HasOne("CalorieTracker.Models.Health_Enthusiast", "Health_Enthusiast")
+                        .WithMany()
+                        .HasForeignKey("HealthEnthusiastId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

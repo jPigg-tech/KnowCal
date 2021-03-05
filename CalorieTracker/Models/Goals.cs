@@ -12,7 +12,9 @@ namespace CalorieTracker.Models
         [Key]
         public int Id { get; set; }
 
-        public int GoalWeight { get; set; }
+        [Display(Name = "What is your goal weight?")]
+        public int? GoalWeight { get; set; }
+
         public int GoalCalories { get; set; }
         public int WeeklyWeight { get; set; }
 
@@ -20,5 +22,8 @@ namespace CalorieTracker.Models
         public int HealthEnthusiastId { get; set; }
         public Health_Enthusiast Health_Enthusiast { get; set; }
 
+        //[ForeignKey("FoodDiary")]
+        //public int FoodDiaryId { get; set; }
+        //public FoodDiary FoodDiary { get; set; }
     }
 }

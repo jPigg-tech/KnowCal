@@ -1,4 +1,5 @@
 ﻿using CalorieTracker.Data;
+using CalorieTracker.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -28,14 +29,25 @@ namespace CalorieTracker.Controllers
             {
                 return RedirectToAction(nameof(Create));
             }
-            //var employerJobs = _context.Jobs.Where(c => c.EmployerId == employer.EmpId).ToList();
+            if (healthEnthusiast.InitialCalorieIntake == null)
+            {
+                return RedirectToAction("GetInitialCalorieIntake", new { id = healthEnthusiast.Id });
+            }
+            var healthEnthusiastGoalWeight = _context.Goals.Where(c => c.HealthEnthusiastId == healthEnthusiast.Id).SingleOrDefault();
             //ViewBag.Id = employer.EmpId;
-            //if (employerJobs.Count == 0)
-            //{
-            //    return RedirectToAction("CreateJob", new { id = employer.EmpId });
-            //}
-            //return View(employerJobs);
+            if (healthEnthusiastGoalWeight.GoalWeight == null)
+            {
+                return RedirectToAction("CreateGoals", new { id = healthEnthusiast.Id });
+            }
+            // return View(healthEnthusiastGoalWeight);
             return View();
+
+
+            // Creating a Profile 
+            // Setting goals 
+            // Asking about initial eating habits
+            // Ask about Activity 
+            // Choosing Recomendations
         }
 
         // GET: HomeController1/Details/5
@@ -58,15 +70,19 @@ namespace CalorieTracker.Controllers
         // POST: HomeController1/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Health_Enthusiast healthEnthusiast)
         {
             try
             {
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                healthEnthusiast.IdentityUserId = userId;
+                _context.Add(healthEnthusiast);
+                _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return View(healthEnthusiast);
             }
         }
 
@@ -104,6 +120,69 @@ namespace CalorieTracker.Controllers
         {
             try
             {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        public IActionResult CreateGoals(int id)
+        {
+            // _context.Jobs.Where(c => c.EmployerId == id);            
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateJob(Goals weightGoal, int id)
+        {
+            try
+            {
+                weightGoal.HealthEnthusiastId = id;
+
+                _context.Goals.Add(weightGoal);
+                _context.SaveChanges();
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return RedirectToAction(nameof(Index));
+            }
+        }
+
+        public async Task<IActionResult> GetInitialCalorieIntake(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var healthEnthusiast = await _context.Health_Enthusiasts.FindAsync(id);
+            if (healthEnthusiast == null)
+            {
+                return NotFound();
+            }
+            return View(healthEnthusiast);
+        }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult GetInitialCalorieIntake(Health_Enthusiast healthEnthusiast)
+        {
+            try
+            {
+                var healthEnthusiastInDb = _context.Health_Enthusiasts.Single(m => m.Id == healthEnthusiast.Id);
+                healthEnthusiastInDb.FirstName = healthEnthusiast.FirstName;
+                healthEnthusiastInDb.LastName = healthEnthusiast.LastName;
+                healthEnthusiastInDb.Height = healthEnthusiast.Height;
+                healthEnthusiastInDb.StartingWeight = healthEnthusiast.StartingWeight;
+                healthEnthusiastInDb.Sex = healthEnthusiast.Sex;
+                healthEnthusiastInDb.Age = healthEnthusiast.Age;
+                healthEnthusiastInDb.InitialCalorieIntake = healthEnthusiast.InitialCalorieIntake;
+
+                _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch
