@@ -20,10 +20,10 @@ namespace CalorieTracker.ActionFilters
             var controller = context.RouteData.Values["controller"];
             if (controller.Equals("Home"))
             {
-                if (_claimsPrincipal.IsInRole("Health Enthusiast"))
+                if (_claimsPrincipal.IsInRole("Health_Enthusiast"))
                 {
                     context.Result = new RedirectToActionResult("Index",
-                    "Health Enthusiasts", null);
+                    "Health_Enthusiast", null);
                 }
                 else if (_claimsPrincipal.IsInRole("Employee"))
                 {

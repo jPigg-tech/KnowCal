@@ -12,30 +12,34 @@ namespace CalorieTracker.Models
         [Key]
         public int Id { get; set; }
 
-        [Display(Name = "Eggs")]
-        public int eggs = 72;
+        public string Name { get; set; }
 
-        [Display(Name = "Chocolate")]
-        public int chocolate = 598;
+        public int Calories { get; set; }
 
-        [Display(Name = "Mixed Baby Lettuce")]
-        public int mixedBabyLettuce = 20;
+        //[Display(Name = "Eggs")]
+        //public int eggs = 72;
 
-        [Display(Name = "Macaroni And Cheese")]
-        public int macAndCheese = 400;
+        //[Display(Name = "Chocolate")]
+        //public int chocolate = 598;
 
-        [Display(Name = "Mayonnaise")]
-        public int mayonnaise = 57;
+        //[Display(Name = "Mixed Baby Lettuce")]
+        //public int mixedBabyLettuce = 20;
 
-        [Display(Name = "Fast Food")]
-        public int fastFood = 836;
+        //[Display(Name = "Macaroni And Cheese")]
+        //public int macAndCheese = 400;
 
-        [Display(Name = "Arroz Rojo")]
-        public int arrozRojo = 297;
+        //[Display(Name = "Mayonnaise")]
+        //public int mayonnaise = 57;
+
+        //[Display(Name = "Fast Food")]
+        //public int fastFood = 836;
+
+        //[Display(Name = "Arroz Rojo")]
+        //public int arrozRojo = 297;
 
 
-        [ForeignKey("Health_Enthusiast")]
-        public int HealthEnthusiastId { get; set; }
-        public Health_Enthusiast Health_Enthusiast { get; set; }
+        //[ForeignKey("Health_Enthusiast")]
+        //public int HealthEnthusiastId { get; set; }
+        //public Health_Enthusiast Health_Enthusiast { get; set; }
     }
 }

@@ -26,6 +26,7 @@ namespace CalorieTracker.Models
         public int StartingWeight { get; set; }
 
         public int? InitialCalorieIntake { get; set; }
+        // public int InitialCalorieIntake = 0;
 
         [Display(Name = "What is your sex?")]
         public string Sex { get; set; }

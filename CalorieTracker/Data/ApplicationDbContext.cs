@@ -12,10 +12,10 @@ namespace CalorieTracker.Data
     {
         public DbSet<Food> Foods { get; set; }
         public DbSet<FoodDiary> FoodDiaries { get; set; }
-
         public DbSet<Goals> Goals { get; set; }
         public DbSet<Health_Enthusiast> Health_Enthusiasts { get; set; }
         public DbSet<NewsLetter> NewsLetters { get; set; }
+        public DbSet<InitialCalorieIntakeList> InitialCalorieIntakeLists { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -29,10 +29,50 @@ namespace CalorieTracker.Data
             .HasData(
             new IdentityRole
             {
-                Name = "Health Enthusiast",
-                NormalizedName = "Health Enthusiast"
+                Name = "Health_Enthusiast",
+                NormalizedName = "HEALTH_ENTHUSIAST"
             }
             );
+
+            builder.Entity<InitialCalorieIntakeList>()
+                .HasData(
+                new InitialCalorieIntakeList
+                {
+                    Id = 1,
+                    Name = "Eggs",
+                    Calories = 72
+                }, new InitialCalorieIntakeList
+                {
+                    Id = 2,
+                    Name = "Chocolate",
+                    Calories = 598
+                }, new InitialCalorieIntakeList
+                {
+                    Id = 3,
+                    Name = "Mixed Baby Lettuce",
+                    Calories = 20
+                }, new InitialCalorieIntakeList
+                {
+                    Id = 4,
+                    Name = "Macaroni And Cheese",
+                    Calories = 400
+                }, new InitialCalorieIntakeList
+                {
+                    Id = 5,
+                    Name = "Mayonnaise",
+                    Calories = 57
+                }, new InitialCalorieIntakeList
+                {
+                    Id = 6,
+                    Name = "Fast Food",
+                    Calories = 836
+                }, new InitialCalorieIntakeList
+                {
+                    Id = 7,
+                    Name = "Arroz Rojo (Mexican Rice)",
+                    Calories = 297
+                }
+                );
         }
     }
 }

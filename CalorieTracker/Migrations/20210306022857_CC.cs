@@ -47,6 +47,20 @@ namespace CalorieTracker.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "InitialCalorieIntakeLists",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    Calories = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InitialCalorieIntakeLists", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -162,7 +176,7 @@ namespace CalorieTracker.Migrations
                     LastName = table.Column<string>(nullable: true),
                     Height = table.Column<int>(nullable: false),
                     StartingWeight = table.Column<int>(nullable: false),
-                    StartingCaloriesPerDay = table.Column<int>(nullable: false),
+                    InitialCalorieIntake = table.Column<int>(nullable: true),
                     Sex = table.Column<string>(nullable: true),
                     Age = table.Column<int>(nullable: false),
                     IdentityUserId = table.Column<string>(nullable: true)
@@ -184,7 +198,7 @@ namespace CalorieTracker.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    GoalWeight = table.Column<int>(nullable: false),
+                    GoalWeight = table.Column<int>(nullable: true),
                     GoalCalories = table.Column<int>(nullable: false),
                     WeeklyWeight = table.Column<int>(nullable: false),
                     HealthEnthusiastId = table.Column<int>(nullable: false)
@@ -278,7 +292,21 @@ namespace CalorieTracker.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "ef9aa558-3679-4953-ada4-0e32ce2c1f4b", "4e2d58c4-f828-4a2f-90c0-dd070bdf7f6a", "Health Enthusiast", "Health Enthusiast" });
+                values: new object[] { "08cde4bd-78d5-447c-a76a-3dfb815a861f", "5e4698e1-f069-47a9-9149-ddbc78d43446", "Health_Enthusiast", "HEALTH_ENTHUSIAST" });
+
+            migrationBuilder.InsertData(
+                table: "InitialCalorieIntakeLists",
+                columns: new[] { "Id", "Calories", "Name" },
+                values: new object[,]
+                {
+                    { 1, 72, "Eggs" },
+                    { 2, 598, "Chocolate" },
+                    { 3, 20, "Mixed Baby Lettuce" },
+                    { 4, 400, "Macaroni And Cheese" },
+                    { 5, 57, "Mayonnaise" },
+                    { 6, 836, "Fast Food" },
+                    { 7, 297, "Arroz Rojo (Mexican Rice)" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -433,6 +461,9 @@ namespace CalorieTracker.Migrations
 
             migrationBuilder.DropTable(
                 name: "Goals");
+
+            migrationBuilder.DropTable(
+                name: "InitialCalorieIntakeLists");
 
             migrationBuilder.DropTable(
                 name: "NewsLetters");

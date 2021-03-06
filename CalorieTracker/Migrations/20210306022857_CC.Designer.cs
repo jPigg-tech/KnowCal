@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CalorieTracker.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210305010655_CC")]
+    [Migration("20210306022857_CC")]
     partial class CC
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -108,7 +108,7 @@ namespace CalorieTracker.Migrations
                     b.Property<int>("GoalCalories")
                         .HasColumnType("int");
 
-                    b.Property<int>("GoalWeight")
+                    b.Property<int?>("GoalWeight")
                         .HasColumnType("int");
 
                     b.Property<int>("HealthEnthusiastId")
@@ -143,14 +143,14 @@ namespace CalorieTracker.Migrations
                     b.Property<string>("IdentityUserId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int?>("InitialCalorieIntake")
+                        .HasColumnType("int");
+
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Sex")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("StartingCaloriesPerDay")
-                        .HasColumnType("int");
 
                     b.Property<int>("StartingWeight")
                         .HasColumnType("int");
@@ -160,6 +160,68 @@ namespace CalorieTracker.Migrations
                     b.HasIndex("IdentityUserId");
 
                     b.ToTable("Health_Enthusiasts");
+                });
+
+            modelBuilder.Entity("CalorieTracker.Models.InitialCalorieIntakeList", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Calories")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("InitialCalorieIntakeLists");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Calories = 72,
+                            Name = "Eggs"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Calories = 598,
+                            Name = "Chocolate"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Calories = 20,
+                            Name = "Mixed Baby Lettuce"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Calories = 400,
+                            Name = "Macaroni And Cheese"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Calories = 57,
+                            Name = "Mayonnaise"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Calories = 836,
+                            Name = "Fast Food"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Calories = 297,
+                            Name = "Arroz Rojo (Mexican Rice)"
+                        });
                 });
 
             modelBuilder.Entity("CalorieTracker.Models.NewsLetter", b =>
@@ -211,10 +273,10 @@ namespace CalorieTracker.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ef9aa558-3679-4953-ada4-0e32ce2c1f4b",
-                            ConcurrencyStamp = "4e2d58c4-f828-4a2f-90c0-dd070bdf7f6a",
-                            Name = "Health Enthusiast",
-                            NormalizedName = "Health Enthusiast"
+                            Id = "08cde4bd-78d5-447c-a76a-3dfb815a861f",
+                            ConcurrencyStamp = "5e4698e1-f069-47a9-9149-ddbc78d43446",
+                            Name = "Health_Enthusiast",
+                            NormalizedName = "HEALTH_ENTHUSIAST"
                         });
                 });
 
