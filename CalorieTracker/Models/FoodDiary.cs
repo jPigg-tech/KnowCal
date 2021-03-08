@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -11,13 +12,24 @@ namespace CalorieTracker.Models
     {
         [Key]
         public int Id { get; set; }
-        public int DailyCaloriesAccumulated { get; set; }
-        public List<Food> Breakfast { get; set; }
-        public List<Food> Lunch { get; set; }
-        public List<Food> Dinner { get; set; }
-        public List<Food> Snack { get; set; }
-        public Food FoodItem { get; set; }
+        
+        [Display(Name = "Food Name")]
+        public string FoodName { get; set; }
+
+        [Display(Name = "Calories")]
+        public int CalorieAmmount { get; set; }
+
+        [Display(Name = "Protein (g)")]
+        public int? ProteinAmount { get; set; }
+
+        [Display(Name = "Fat (g)")]
+        public int? FatAmount { get; set; }
+
+        [Display(Name = "Serving Size")]
+        public int? ServingSize { get; set; }
         public static DateTime TodaysDate { get; }
+
+        public int? DailyCaloriesAccumulated { get; set; }
 
         //private DateTime _timeLogged = DateTime.Now; 
         //public DateTime TimeLogged
@@ -31,8 +43,12 @@ namespace CalorieTracker.Models
         public int HealthEnthusiastId { get; set; }
         public Health_Enthusiast Health_Enthusiast { get; set; }
 
-        //[ForeignKey("Food")]
-        //public int FoodId { get; set; }
-        //public Food Food { get; set; }
+        [ForeignKey("Meal")]        
+        public int MealId { get; set; }
+        [Display(Name = "Meal of Day")]
+        public Meal Meal { get; set; }
+
+        [NotMapped]
+        public SelectList Meals { get; set; }
     }
 }

@@ -47,6 +47,18 @@ namespace CalorieTracker.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Foods",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Foods", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "InitialCalorieIntakeLists",
                 columns: table => new
                 {
@@ -58,6 +70,19 @@ namespace CalorieTracker.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_InitialCalorieIntakeLists", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Meals",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Meals", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -198,6 +223,38 @@ namespace CalorieTracker.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "FoodDiaries",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FoodName = table.Column<string>(nullable: true),
+                    CalorieAmmount = table.Column<int>(nullable: false),
+                    ProteinAmount = table.Column<int>(nullable: true),
+                    FatAmount = table.Column<int>(nullable: true),
+                    ServingSize = table.Column<int>(nullable: true),
+                    DailyCaloriesAccumulated = table.Column<int>(nullable: true),
+                    HealthEnthusiastId = table.Column<int>(nullable: false),
+                    MealId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FoodDiaries", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FoodDiaries_Health_Enthusiasts_HealthEnthusiastId",
+                        column: x => x.HealthEnthusiastId,
+                        principalTable: "Health_Enthusiasts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FoodDiaries_Meals_MealId",
+                        column: x => x.MealId,
+                        principalTable: "Meals",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Goals",
                 columns: table => new
                 {
@@ -240,58 +297,10 @@ namespace CalorieTracker.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Foods",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FoodName = table.Column<string>(nullable: true),
-                    CalorieAmmount = table.Column<int>(nullable: false),
-                    ProteinAmount = table.Column<int>(nullable: false),
-                    FatAmount = table.Column<int>(nullable: false),
-                    ServingSize = table.Column<int>(nullable: false),
-                    FoodDiaryId = table.Column<int>(nullable: true),
-                    FoodDiaryId1 = table.Column<int>(nullable: true),
-                    FoodDiaryId2 = table.Column<int>(nullable: true),
-                    FoodDiaryId3 = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Foods", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "FoodDiaries",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DailyCaloriesAccumulated = table.Column<int>(nullable: false),
-                    FoodItemId = table.Column<int>(nullable: true),
-                    HealthEnthusiastId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FoodDiaries", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_FoodDiaries_Foods_FoodItemId",
-                        column: x => x.FoodItemId,
-                        principalTable: "Foods",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_FoodDiaries_Health_Enthusiasts_HealthEnthusiastId",
-                        column: x => x.HealthEnthusiastId,
-                        principalTable: "Health_Enthusiasts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "56015b20-a95d-4076-8f30-dd0c18f3c69c", "64be4aba-b8af-4960-ad7a-cf7054e75341", "Health_Enthusiast", "HEALTH_ENTHUSIAST" });
+                values: new object[] { "e90a38a4-e3bd-4334-9f30-85852331d736", "5251d05d-f73d-4e77-80f7-c2465ce7b66b", "Health_Enthusiast", "HEALTH_ENTHUSIAST" });
 
             migrationBuilder.InsertData(
                 table: "InitialCalorieIntakeLists",
@@ -305,6 +314,17 @@ namespace CalorieTracker.Migrations
                     { 5, 57, "Mayonnaise" },
                     { 6, 836, "Fast Food" },
                     { 7, 297, "Arroz Rojo (Mexican Rice)" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Meals",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Breakfast" },
+                    { 2, "Lunch" },
+                    { 3, "Dinner" },
+                    { 4, "Snack" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -347,34 +367,14 @@ namespace CalorieTracker.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FoodDiaries_FoodItemId",
-                table: "FoodDiaries",
-                column: "FoodItemId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_FoodDiaries_HealthEnthusiastId",
                 table: "FoodDiaries",
                 column: "HealthEnthusiastId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Foods_FoodDiaryId",
-                table: "Foods",
-                column: "FoodDiaryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Foods_FoodDiaryId1",
-                table: "Foods",
-                column: "FoodDiaryId1");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Foods_FoodDiaryId2",
-                table: "Foods",
-                column: "FoodDiaryId2");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Foods_FoodDiaryId3",
-                table: "Foods",
-                column: "FoodDiaryId3");
+                name: "IX_FoodDiaries_MealId",
+                table: "FoodDiaries",
+                column: "MealId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Goals_HealthEnthusiastId",
@@ -390,50 +390,10 @@ namespace CalorieTracker.Migrations
                 name: "IX_NewsLetters_HealthEnthusiastId",
                 table: "NewsLetters",
                 column: "HealthEnthusiastId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Foods_FoodDiaries_FoodDiaryId",
-                table: "Foods",
-                column: "FoodDiaryId",
-                principalTable: "FoodDiaries",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Foods_FoodDiaries_FoodDiaryId1",
-                table: "Foods",
-                column: "FoodDiaryId1",
-                principalTable: "FoodDiaries",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Foods_FoodDiaries_FoodDiaryId2",
-                table: "Foods",
-                column: "FoodDiaryId2",
-                principalTable: "FoodDiaries",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Foods_FoodDiaries_FoodDiaryId3",
-                table: "Foods",
-                column: "FoodDiaryId3",
-                principalTable: "FoodDiaries",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Health_Enthusiasts_AspNetUsers_IdentityUserId",
-                table: "Health_Enthusiasts");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_FoodDiaries_Foods_FoodItemId",
-                table: "FoodDiaries");
-
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -450,6 +410,12 @@ namespace CalorieTracker.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "FoodDiaries");
+
+            migrationBuilder.DropTable(
+                name: "Foods");
+
+            migrationBuilder.DropTable(
                 name: "Goals");
 
             migrationBuilder.DropTable(
@@ -462,16 +428,13 @@ namespace CalorieTracker.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Foods");
-
-            migrationBuilder.DropTable(
-                name: "FoodDiaries");
+                name: "Meals");
 
             migrationBuilder.DropTable(
                 name: "Health_Enthusiasts");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
         }
     }
 }

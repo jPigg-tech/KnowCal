@@ -2,6 +2,7 @@
 using CalorieTracker.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,8 +43,12 @@ namespace CalorieTracker.Controllers
             {
                 return RedirectToAction("Recomendations", new { id = healthEnthusiast.Id });
             }
-            var healthEnthusiastFoodDiary = _context.FoodDiaries.Where(c => c.HealthEnthusiastId == healthEnthusiast.Id).SingleOrDefault();
-
+            var healthEnthusiastFoodDiary = _context.FoodDiaries.Where(c => c.HealthEnthusiastId == healthEnthusiast.Id).ToList();
+            ViewBag.Id = healthEnthusiast.Id;
+            if (healthEnthusiastFoodDiary.Count == 0)
+            {
+                return RedirectToAction("Details", new { id = healthEnthusiast.Id });
+            }
             return View(healthEnthusiastFoodDiary);
 
             // Creating a Profile 
@@ -54,13 +59,13 @@ namespace CalorieTracker.Controllers
         }
 
         // GET: HomeController1/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            var healthEnthusiast = _context.Health_Enthusiasts.SingleOrDefault(m => m.Id == id);
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var healthEnthusiast = _context.Health_Enthusiasts.Where(c => c.IdentityUserId ==
+            userId).FirstOrDefault();
+
+            // var healthEnthusiast = _context.Health_Enthusiasts.SingleOrDefault(m => m.Id == id);
             return View(healthEnthusiast);
         }
 
@@ -384,5 +389,45 @@ namespace CalorieTracker.Controllers
             return View(recomendedCals);
         }
 
+        public ActionResult CreateFoodDiary()
+        {
+            var meals = _context.Meals.ToList();
+            FoodDiary foodDiary = new FoodDiary()
+            {
+                Meals = new SelectList(meals, "Id", "Name")
+            };
+            return View(foodDiary);
+            //return View();
+        }
+
+        // POST: HomeController1/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateFoodDiary(FoodDiary foodDiary)
+        {
+
+            try
+            {
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var healthEnthusiast = _context.Health_Enthusiasts.Where(c => c.IdentityUserId ==
+                userId).FirstOrDefault();
+
+                foodDiary.HealthEnthusiastId = healthEnthusiast.Id;
+                foodDiary.Meal = _context.Meals.Where(m => m.Id == foodDiary.MealId).FirstOrDefault();
+                foodDiary.Meal.Name = foodDiary.Meal.Name;
+                _context.Add(foodDiary);
+                _context.SaveChanges();
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                var meals = _context.Meals.ToList();
+                FoodDiary foodDiaryRetry = new FoodDiary()
+                {
+                    Meals = new SelectList(meals, "Id", "Name")
+                };
+                return View(foodDiaryRetry);
+            }
+        }
     }
 }

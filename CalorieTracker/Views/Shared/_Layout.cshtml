@@ -23,7 +23,10 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Health_Enthusiast" asp-action="CreateFoodDiary" asp-route-id="@ViewBag.Id">Add Food</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Health_Enthusiast" asp-action="Details" asp-route-id="@ViewBag.Id">Account Info</a>
                         </li>
                     </ul>
                 </div>

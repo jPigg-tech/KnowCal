@@ -26,42 +26,7 @@ namespace CalorieTracker.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CalorieAmmount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FatAmount")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("FoodDiaryId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("FoodDiaryId1")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("FoodDiaryId2")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("FoodDiaryId3")
-                        .HasColumnType("int");
-
-                    b.Property<string>("FoodName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProteinAmount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ServingSize")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("FoodDiaryId");
-
-                    b.HasIndex("FoodDiaryId1");
-
-                    b.HasIndex("FoodDiaryId2");
-
-                    b.HasIndex("FoodDiaryId3");
 
                     b.ToTable("Foods");
                 });
@@ -73,20 +38,35 @@ namespace CalorieTracker.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("DailyCaloriesAccumulated")
+                    b.Property<int>("CalorieAmmount")
                         .HasColumnType("int");
 
-                    b.Property<int?>("FoodItemId")
+                    b.Property<int?>("DailyCaloriesAccumulated")
                         .HasColumnType("int");
+
+                    b.Property<int?>("FatAmount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FoodName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("HealthEnthusiastId")
                         .HasColumnType("int");
 
+                    b.Property<int>("MealId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ProteinAmount")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ServingSize")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("FoodItemId");
-
                     b.HasIndex("HealthEnthusiastId");
+
+                    b.HasIndex("MealId");
 
                     b.ToTable("FoodDiaries");
                 });
@@ -235,6 +215,43 @@ namespace CalorieTracker.Migrations
                         });
                 });
 
+            modelBuilder.Entity("CalorieTracker.Models.Meal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Meals");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Breakfast"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Lunch"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Dinner"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Snack"
+                        });
+                });
+
             modelBuilder.Entity("CalorieTracker.Models.NewsLetter", b =>
                 {
                     b.Property<int>("Id")
@@ -284,8 +301,8 @@ namespace CalorieTracker.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "56015b20-a95d-4076-8f30-dd0c18f3c69c",
-                            ConcurrencyStamp = "64be4aba-b8af-4960-ad7a-cf7054e75341",
+                            Id = "e90a38a4-e3bd-4334-9f30-85852331d736",
+                            ConcurrencyStamp = "5251d05d-f73d-4e77-80f7-c2465ce7b66b",
                             Name = "Health_Enthusiast",
                             NormalizedName = "HEALTH_ENTHUSIAST"
                         });
@@ -460,34 +477,17 @@ namespace CalorieTracker.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("CalorieTracker.Models.Food", b =>
-                {
-                    b.HasOne("CalorieTracker.Models.FoodDiary", null)
-                        .WithMany("Breakfast")
-                        .HasForeignKey("FoodDiaryId");
-
-                    b.HasOne("CalorieTracker.Models.FoodDiary", null)
-                        .WithMany("Dinner")
-                        .HasForeignKey("FoodDiaryId1");
-
-                    b.HasOne("CalorieTracker.Models.FoodDiary", null)
-                        .WithMany("Lunch")
-                        .HasForeignKey("FoodDiaryId2");
-
-                    b.HasOne("CalorieTracker.Models.FoodDiary", null)
-                        .WithMany("Snack")
-                        .HasForeignKey("FoodDiaryId3");
-                });
-
             modelBuilder.Entity("CalorieTracker.Models.FoodDiary", b =>
                 {
-                    b.HasOne("CalorieTracker.Models.Food", "FoodItem")
-                        .WithMany()
-                        .HasForeignKey("FoodItemId");
-
                     b.HasOne("CalorieTracker.Models.Health_Enthusiast", "Health_Enthusiast")
                         .WithMany()
                         .HasForeignKey("HealthEnthusiastId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CalorieTracker.Models.Meal", "Meal")
+                        .WithMany()
+                        .HasForeignKey("MealId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

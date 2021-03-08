@@ -19,19 +19,19 @@ namespace CalorieTracker.Models
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
-        [Display(Name = "What is your height in inches?")]
+        [Display(Name = "Your Height in Inches")]
         public int Height { get; set; }
 
-        [Display(Name = "What is your current weight?")]
+        [Display(Name = "Current Weight")]
         public int StartingWeight { get; set; }
 
-        [Display(Name = "What is your goal weight?")]
+        [Display(Name = "Goal Weight")]
         public int GoalWeight { get; set; }
 
-        [Display(Name = "What is your sex?")]
+        [Display(Name = "Sex")]
         public string Sex { get; set; }
 
-        [Display(Name = "What is your age?")]
+        [Display(Name = "Your age")]
         public int Age { get; set; }
 
         [Display(Name = "Email for the Newsletter!")]

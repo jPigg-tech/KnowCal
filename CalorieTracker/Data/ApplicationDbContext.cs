@@ -16,6 +16,7 @@ namespace CalorieTracker.Data
         public DbSet<Health_Enthusiast> Health_Enthusiasts { get; set; }
         public DbSet<NewsLetter> NewsLetters { get; set; }
         public DbSet<InitialCalorieIntakeList> InitialCalorieIntakeLists { get; set; }
+        public DbSet<Meal> Meals { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -71,6 +72,29 @@ namespace CalorieTracker.Data
                     Id = 7,
                     Name = "Arroz Rojo (Mexican Rice)",
                     Calories = 297
+                }
+                );
+            builder.Entity<Meal>()
+                .HasData(
+                new Meal
+                {
+                    Id = 1,
+                    Name = "Breakfast"
+                    
+                }, new Meal
+                {
+                    Id = 2,
+                    Name = "Lunch"
+                   
+                }, new Meal
+                {
+                    Id = 3,
+                    Name = "Dinner"
+                    
+                }, new Meal
+                {
+                    Id = 4,
+                    Name = "Snack"                   
                 }
                 );
         }

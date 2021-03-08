@@ -1,4 +1,4 @@
-﻿@model CalorieTracker.Models.FoodDiary
+﻿@model IEnumerable<CalorieTracker.Models.FoodDiary>
 
 @{
     ViewData["Title"] = "Index";
@@ -7,34 +7,62 @@
 
 <h1>Index</h1>
 
-<h4>FoodDiary</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Index">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="DailyCaloriesAccumulated" class="control-label"></label>
-                <input asp-for="DailyCaloriesAccumulated" class="form-control" />
-                <span asp-validation-for="DailyCaloriesAccumulated" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="HealthEnthusiastId" class="control-label"></label>
-                <select asp-for="HealthEnthusiastId" class="form-control" asp-items="ViewBag.HealthEnthusiastId"></select>
-                <span asp-validation-for="HealthEnthusiastId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FoodName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CalorieAmmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProteinAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FatAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ServingSize)
+            </th>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.Meal)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FoodName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CalorieAmmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProteinAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FatAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ServingSize)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.MealId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
 }
+    </tbody>
+</table>

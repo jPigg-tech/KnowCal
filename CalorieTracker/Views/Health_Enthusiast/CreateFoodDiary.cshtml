@@ -1,0 +1,60 @@
+﻿@model CalorieTracker.Models.FoodDiary
+
+@{
+    ViewData["Title"] = "CreateFoodDiary";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>CreateFoodDiary</h1>
+
+<h4>FoodDiary</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateFoodDiary">
+            <input asp-for="Id" type="hidden" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FoodName" class="control-label"></label>
+                <input asp-for="FoodName" class="form-control" />
+                <span asp-validation-for="FoodName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CalorieAmmount" class="control-label"></label>
+                <input asp-for="CalorieAmmount" class="form-control" />
+                <span asp-validation-for="CalorieAmmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProteinAmount" class="control-label"></label>
+                <input asp-for="ProteinAmount" class="form-control" />
+                <span asp-validation-for="ProteinAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FatAmount" class="control-label"></label>
+                <input asp-for="FatAmount" class="form-control" />
+                <span asp-validation-for="FatAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ServingSize" class="control-label"></label>
+                <input asp-for="ServingSize" class="form-control" />
+                <span asp-validation-for="ServingSize" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Meal" class="control-label"></label>
+                <select asp-for="MealId" class ="form-control" asp-items='Model.Meals'></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
