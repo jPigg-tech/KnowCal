@@ -1,0 +1,43 @@
+﻿@model CalorieTracker.Models.Health_Enthusiast
+
+@{
+    ViewData["Title"] = "GetActivity";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Your Activity</h1>
+
+<p> To help us get the best recomendations for your calorie intake we will need to know how active you are!</p>
+<p> On a scale from 1-3 how active would you say you are?</p>
+<p> (1 = Sedentary)</p>
+<p> (2 = Moderate)</p>
+<p> (3 = Active)</p>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="GetActivity">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            
+           
+            <div class="form-group">
+                <label asp-for="Activity" class="control-label"></label>
+                <input asp-for="Activity" class="form-control" />
+                <span asp-validation-for="Activity" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Recomendations" asp-route-id="@ViewBag.Id">Next</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

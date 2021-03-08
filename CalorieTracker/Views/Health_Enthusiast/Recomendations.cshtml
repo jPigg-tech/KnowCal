@@ -1,22 +1,24 @@
 ﻿@model CalorieTracker.Models.Health_Enthusiast
 
 @{
-    ViewData["Title"] = "AddInitialCalorieIntake";
+    ViewData["Title"] = "Recomendations";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Food Registration </h1>
+<h1>Thanks!</h1>
 
-<p>Click "Save" to register your food item from the previous screen and then add another!</p>
+<p>Filling out all of the information to get started on your health journey can be lengthy and for that we commend you for making it this far!</p>
+<p>All you have to do next is click "Next" to see the recomendations we have for you!</p>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="AddInitialCalorieIntake">
+        <form asp-action="Recomendations">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             
+            
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Next" class="btn btn-primary" />
             </div>
         </form>
     </div>

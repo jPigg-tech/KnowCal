@@ -15,11 +15,12 @@ namespace CalorieTracker.Models
         [Display(Name = "What is your goal weight?")]
         public int? GoalWeight { get; set; }
 
-        public int GoalCalories { get; set; }
-        public int WeeklyWeight { get; set; }
+        public int? GoalCalories { get; set; }
+        public double? WeeklyWeightLoss { get; set; }
+        public int? Activity { get; set; }
 
         [ForeignKey("Health_Enthusiast")]
-        public int HealthEnthusiastId { get; set; }
+        public int? HealthEnthusiastId { get; set; }
         public Health_Enthusiast Health_Enthusiast { get; set; }
 
         //[ForeignKey("FoodDiary")]

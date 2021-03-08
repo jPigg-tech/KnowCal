@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CalorieTracker.Migrations
 {
-    public partial class CC : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -176,9 +176,14 @@ namespace CalorieTracker.Migrations
                     LastName = table.Column<string>(nullable: true),
                     Height = table.Column<int>(nullable: false),
                     StartingWeight = table.Column<int>(nullable: false),
-                    InitialCalorieIntake = table.Column<int>(nullable: true),
+                    GoalWeight = table.Column<int>(nullable: false),
                     Sex = table.Column<string>(nullable: true),
                     Age = table.Column<int>(nullable: false),
+                    Email = table.Column<string>(nullable: true),
+                    InitialCalorieIntake = table.Column<int>(nullable: true),
+                    GoalCalories = table.Column<int>(nullable: true),
+                    WeeklyWeightLoss = table.Column<double>(nullable: true),
+                    Activity = table.Column<int>(nullable: true),
                     IdentityUserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -199,9 +204,10 @@ namespace CalorieTracker.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     GoalWeight = table.Column<int>(nullable: true),
-                    GoalCalories = table.Column<int>(nullable: false),
-                    WeeklyWeight = table.Column<int>(nullable: false),
-                    HealthEnthusiastId = table.Column<int>(nullable: false)
+                    GoalCalories = table.Column<int>(nullable: true),
+                    WeeklyWeightLoss = table.Column<double>(nullable: true),
+                    Activity = table.Column<int>(nullable: true),
+                    HealthEnthusiastId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -211,7 +217,7 @@ namespace CalorieTracker.Migrations
                         column: x => x.HealthEnthusiastId,
                         principalTable: "Health_Enthusiasts",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -263,18 +269,11 @@ namespace CalorieTracker.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DailyCaloriesAccumulated = table.Column<int>(nullable: false),
                     FoodItemId = table.Column<int>(nullable: true),
-                    HealthEnthusiastId = table.Column<int>(nullable: false),
-                    FoodId = table.Column<int>(nullable: false)
+                    HealthEnthusiastId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_FoodDiaries", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_FoodDiaries_Foods_FoodId",
-                        column: x => x.FoodId,
-                        principalTable: "Foods",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_FoodDiaries_Foods_FoodItemId",
                         column: x => x.FoodItemId,
@@ -292,7 +291,7 @@ namespace CalorieTracker.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "08cde4bd-78d5-447c-a76a-3dfb815a861f", "5e4698e1-f069-47a9-9149-ddbc78d43446", "Health_Enthusiast", "HEALTH_ENTHUSIAST" });
+                values: new object[] { "56015b20-a95d-4076-8f30-dd0c18f3c69c", "64be4aba-b8af-4960-ad7a-cf7054e75341", "Health_Enthusiast", "HEALTH_ENTHUSIAST" });
 
             migrationBuilder.InsertData(
                 table: "InitialCalorieIntakeLists",
@@ -346,11 +345,6 @@ namespace CalorieTracker.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_FoodDiaries_FoodId",
-                table: "FoodDiaries",
-                column: "FoodId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_FoodDiaries_FoodItemId",
@@ -435,10 +429,6 @@ namespace CalorieTracker.Migrations
             migrationBuilder.DropForeignKey(
                 name: "FK_Health_Enthusiasts_AspNetUsers_IdentityUserId",
                 table: "Health_Enthusiasts");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_FoodDiaries_Foods_FoodId",
-                table: "FoodDiaries");
 
             migrationBuilder.DropForeignKey(
                 name: "FK_FoodDiaries_Foods_FoodItemId",

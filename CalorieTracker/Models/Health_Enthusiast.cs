@@ -25,14 +25,26 @@ namespace CalorieTracker.Models
         [Display(Name = "What is your current weight?")]
         public int StartingWeight { get; set; }
 
-        public int? InitialCalorieIntake { get; set; }
-        // public int InitialCalorieIntake = 0;
+        [Display(Name = "What is your goal weight?")]
+        public int GoalWeight { get; set; }
 
         [Display(Name = "What is your sex?")]
         public string Sex { get; set; }
 
         [Display(Name = "What is your age?")]
         public int Age { get; set; }
+
+        [Display(Name = "Email for the Newsletter!")]
+        public string? Email { get; set; }
+
+        public int? InitialCalorieIntake { get; set; }
+        // public int InitialCalorieIntake = 0;  
+
+        [Display(Name = "Calories Per Day")]
+        public int? GoalCalories { get; set; }
+        [Display(Name = "Pounds per week you will lose")]
+        public double? WeeklyWeightLoss { get; set; }
+        public int? Activity { get; set; }        
 
         [ForeignKey("IdentityUser")]
         public string IdentityUserId { get; set; }

@@ -1,0 +1,33 @@
+﻿@model CalorieTracker.Models.Health_Enthusiast
+
+@{
+    ViewData["Title"] = "RecomendationDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Recomendations!</h1>
+
+<div>
+    <h4>Recomeded calorie intake for @Html.DisplayFor(model => model.FirstName) per day!</h4>
+    <hr />
+    <dl class="row">
+       
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.GoalCalories)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.GoalCalories)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.WeeklyWeightLoss)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.WeeklyWeightLoss)
+        </dd>
+                
+    </dl>
+</div>
+<p>*Adapted from the 2015-2020 Dietary Guidelines for Americans</p>
+<div>    
+    <a asp-action="Index">Got it!</a>
+</div>
