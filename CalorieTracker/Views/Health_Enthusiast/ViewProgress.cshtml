@@ -1,0 +1,121 @@
+﻿@model IEnumerable<CalorieTracker.Models.FoodDiary>
+
+@{
+    ViewData["Title"] = "ViewProgress";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>View Your Progress</h1>
+
+@*<p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FoodName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CalorieAmmount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProteinAmount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FatAmount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ServingSize)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DailyCaloriesAccumulated)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Health_Enthusiast)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Meal)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FoodName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CalorieAmmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProteinAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FatAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ServingSize)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DailyCaloriesAccumulated)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Health_Enthusiast.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Meal.Id)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>*@
+
+<canvas id="myChart" width="400" height="400"></canvas>  
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script>
+    
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Breakfast', 'Lunch', 'Dinner', 'Snacks'],
+            datasets: [{
+                label: 'Number of Calories',
+                data: [@ViewBag.One, @ViewBag.Two, @ViewBag.Three, @ViewBag.Four],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+</script>

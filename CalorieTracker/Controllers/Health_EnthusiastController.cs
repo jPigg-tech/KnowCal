@@ -429,5 +429,40 @@ namespace CalorieTracker.Controllers
                 return View(foodDiaryRetry);
             }
         }
+        public ActionResult ViewProgress(int id)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var healthEnthusiast = _context.Health_Enthusiasts.Where(c => c.IdentityUserId ==
+            userId).FirstOrDefault();
+
+            var healthEnthusiastFoodDiary = _context.FoodDiaries.Where(c => c.HealthEnthusiastId == healthEnthusiast.Id).ToList();
+            foreach (var item in healthEnthusiastFoodDiary)
+            {
+                int calories = 0;
+                if (item.MealId == 1)
+                {
+                    calories += item.CalorieAmmount;
+                    ViewBag.One = calories;
+                }
+                if (item.MealId == 2)
+                {
+                    calories += item.CalorieAmmount;
+                    ViewBag.Two = calories;
+                }
+                if (item.MealId == 3)
+                {
+                    calories += item.CalorieAmmount;
+                    ViewBag.Three = calories;
+                }
+                if (item.MealId == 4)
+                {
+                    calories += item.CalorieAmmount;
+                    ViewBag.Four = calories;
+                }
+            }
+
+            return View();
+        }
+
     }
 }

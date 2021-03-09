@@ -15,31 +15,5 @@ namespace CalorieTracker.Models
         public string Name { get; set; }
 
         public int Calories { get; set; }
-
-        //[Display(Name = "Eggs")]
-        //public int eggs = 72;
-
-        //[Display(Name = "Chocolate")]
-        //public int chocolate = 598;
-
-        //[Display(Name = "Mixed Baby Lettuce")]
-        //public int mixedBabyLettuce = 20;
-
-        //[Display(Name = "Macaroni And Cheese")]
-        //public int macAndCheese = 400;
-
-        //[Display(Name = "Mayonnaise")]
-        //public int mayonnaise = 57;
-
-        //[Display(Name = "Fast Food")]
-        //public int fastFood = 836;
-
-        //[Display(Name = "Arroz Rojo")]
-        //public int arrozRojo = 297;
-
-
-        //[ForeignKey("Health_Enthusiast")]
-        //public int HealthEnthusiastId { get; set; }
-        //public Health_Enthusiast Health_Enthusiast { get; set; }
     }
 }
