@@ -5,10 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Welcome To KnowCal!</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="CreateFoodDiary" asp-route-id="@ViewBag.Id">Add Food</a>
 </p>
 <table class="table">
     <thead>
@@ -28,7 +28,10 @@
             <th>
                 @Html.DisplayNameFor(model => model.ServingSize)
             </th>
-            
+            <th>
+                @Html.DisplayNameFor(model => model.TodaysDate)
+            </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.Meal)
             </th>
@@ -53,14 +56,17 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ServingSize)
             </td>
-            
+            <td>
+                @Html.DisplayFor(modelItem => item.TodaysDate))
+            </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.MealId)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="DeleteFood" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }

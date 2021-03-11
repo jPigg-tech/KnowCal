@@ -5,9 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>CreateFoodDiary</h1>
+<h1>KnowCal</h1>
 
-<h4>FoodDiary</h4>
+<h4>Adding food to your Diary</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -39,10 +39,15 @@
                 <input asp-for="ServingSize" class="form-control" />
                 <span asp-validation-for="ServingSize" class="text-danger"></span>
             </div>
-            
+            <div class="form-group">
+                <label asp-for="TodaysDate" class="control-label"></label>
+                <input asp-for="TodaysDate" class="form-control" />
+                <span asp-validation-for="TodaysDate" class="text-danger"></span>
+            </div>
+
             <div class="form-group">
                 <label asp-for="Meal" class="control-label"></label>
-                <select asp-for="MealId" class ="form-control" asp-items='Model.Meals'></select>
+                <select asp-for="MealId" class="form-control" asp-items='Model.Meals'></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -52,7 +57,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Home</a>
 </div>
 
 @section Scripts {

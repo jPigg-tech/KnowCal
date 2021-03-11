@@ -1,6 +1,7 @@
 ﻿using CalorieTracker.Data;
 using CalorieTracker.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
@@ -13,11 +14,13 @@ namespace CalorieTracker.Controllers
 {
     public class Health_EnthusiastController : Controller
     {
+        private readonly IEmailSender _emailSender;
         private readonly ApplicationDbContext _context;
 
-        public Health_EnthusiastController(ApplicationDbContext context)
+        public Health_EnthusiastController(ApplicationDbContext context, IEmailSender emailSender)
         {
             _context = context;
+            _emailSender = emailSender;
         }
 
         // GET: HomeController1
@@ -410,11 +413,15 @@ namespace CalorieTracker.Controllers
             {
                 var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 var healthEnthusiast = _context.Health_Enthusiasts.Where(c => c.IdentityUserId ==
-                userId).FirstOrDefault();
+                userId).FirstOrDefault();                
 
-                foodDiary.HealthEnthusiastId = healthEnthusiast.Id;
+                foodDiary.HealthEnthusiastId = healthEnthusiast.Id;                
                 foodDiary.Meal = _context.Meals.Where(m => m.Id == foodDiary.MealId).FirstOrDefault();
                 foodDiary.Meal.Name = foodDiary.Meal.Name;
+                foodDiary.CalorieAmmount *= foodDiary.ServingSize;
+                foodDiary.FatAmount *= foodDiary.ServingSize;
+                foodDiary.ProteinAmount *= foodDiary.ServingSize;
+                foodDiary.TodaysDate = foodDiary.TodaysDate.Date;
                 _context.Add(foodDiary);
                 _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
@@ -435,34 +442,49 @@ namespace CalorieTracker.Controllers
             var healthEnthusiast = _context.Health_Enthusiasts.Where(c => c.IdentityUserId ==
             userId).FirstOrDefault();
 
+            ViewBag.Initial = healthEnthusiast.InitialCalorieIntake;
+            ViewBag.Goal = healthEnthusiast.GoalCalories;
+
             var healthEnthusiastFoodDiary = _context.FoodDiaries.Where(c => c.HealthEnthusiastId == healthEnthusiast.Id).ToList();
+            int mealOneCalories = 0;
+            int mealTwoCalories = 0;
+            int mealThreeCalories = 0;
+            int mealFourCalories = 0;
+            int caloriesAccumulated = 0;
+            
             foreach (var item in healthEnthusiastFoodDiary)
-            {
-                int calories = 0;
+            {                
                 if (item.MealId == 1)
                 {
-                    calories += item.CalorieAmmount;
-                    ViewBag.One = calories;
+                    mealOneCalories += item.CalorieAmmount;                    
+                    ViewBag.One = mealOneCalories;
                 }
                 if (item.MealId == 2)
                 {
-                    calories += item.CalorieAmmount;
-                    ViewBag.Two = calories;
+                    mealTwoCalories += item.CalorieAmmount;
+                    ViewBag.Two = mealTwoCalories;
                 }
                 if (item.MealId == 3)
                 {
-                    calories += item.CalorieAmmount;
-                    ViewBag.Three = calories;
+                    mealThreeCalories += item.CalorieAmmount;
+                    ViewBag.Three = mealThreeCalories;
                 }
                 if (item.MealId == 4)
                 {
-                    calories += item.CalorieAmmount;
-                    ViewBag.Four = calories;
+                    mealFourCalories += item.CalorieAmmount;
+                    ViewBag.Four = mealFourCalories;                    
                 }
+                caloriesAccumulated += item.CalorieAmmount;
+                ViewBag.Five = caloriesAccumulated;
             }
-
             return View();
         }
-
+        public IActionResult DeleteFood(int id)
+        {
+            var food = _context.FoodDiaries.SingleOrDefault(m => m.Id == id);
+            _context.FoodDiaries.Remove(food);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

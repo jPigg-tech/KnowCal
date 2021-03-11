@@ -20,14 +20,15 @@ namespace CalorieTracker.Models
         public int CalorieAmmount { get; set; }
 
         [Display(Name = "Protein (g)")]
-        public int? ProteinAmount { get; set; }
+        public int ProteinAmount { get; set; }
 
         [Display(Name = "Fat (g)")]
-        public int? FatAmount { get; set; }
+        public int FatAmount { get; set; }
 
         [Display(Name = "Serving Size")]
-        public int? ServingSize { get; set; }
-        public static DateTime TodaysDate { get; }
+        public int ServingSize { get; set; }
+        [Display(Name = "Today's Date")]
+        public DateTime TodaysDate { get; set; }
 
         public int? DailyCaloriesAccumulated { get; set; }
 

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CalorieTracker.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210308141422_Initial")]
-    partial class Initial
+    [Migration("20210311142812_CC")]
+    partial class CC
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,7 +46,7 @@ namespace CalorieTracker.Migrations
                     b.Property<int?>("DailyCaloriesAccumulated")
                         .HasColumnType("int");
 
-                    b.Property<int?>("FatAmount")
+                    b.Property<int>("FatAmount")
                         .HasColumnType("int");
 
                     b.Property<string>("FoodName")
@@ -58,11 +58,14 @@ namespace CalorieTracker.Migrations
                     b.Property<int>("MealId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ProteinAmount")
+                    b.Property<int>("ProteinAmount")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ServingSize")
+                    b.Property<int>("ServingSize")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("TodaysDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -303,8 +306,8 @@ namespace CalorieTracker.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e90a38a4-e3bd-4334-9f30-85852331d736",
-                            ConcurrencyStamp = "5251d05d-f73d-4e77-80f7-c2465ce7b66b",
+                            Id = "5ad2de89-84ff-4363-a5a4-8b7f2cb5dd91",
+                            ConcurrencyStamp = "a1b2b398-5f86-4e1e-b508-f34329725fee",
                             Name = "Health_Enthusiast",
                             NormalizedName = "HEALTH_ENTHUSIAST"
                         });

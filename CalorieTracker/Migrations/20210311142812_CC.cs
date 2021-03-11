@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CalorieTracker.Migrations
 {
-    public partial class Initial : Migration
+    public partial class CC : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -230,9 +230,10 @@ namespace CalorieTracker.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FoodName = table.Column<string>(nullable: true),
                     CalorieAmmount = table.Column<int>(nullable: false),
-                    ProteinAmount = table.Column<int>(nullable: true),
-                    FatAmount = table.Column<int>(nullable: true),
-                    ServingSize = table.Column<int>(nullable: true),
+                    ProteinAmount = table.Column<int>(nullable: false),
+                    FatAmount = table.Column<int>(nullable: false),
+                    ServingSize = table.Column<int>(nullable: false),
+                    TodaysDate = table.Column<DateTime>(nullable: false),
                     DailyCaloriesAccumulated = table.Column<int>(nullable: true),
                     HealthEnthusiastId = table.Column<int>(nullable: false),
                     MealId = table.Column<int>(nullable: false)
@@ -300,7 +301,7 @@ namespace CalorieTracker.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "e90a38a4-e3bd-4334-9f30-85852331d736", "5251d05d-f73d-4e77-80f7-c2465ce7b66b", "Health_Enthusiast", "HEALTH_ENTHUSIAST" });
+                values: new object[] { "5ad2de89-84ff-4363-a5a4-8b7f2cb5dd91", "a1b2b398-5f86-4e1e-b508-f34329725fee", "Health_Enthusiast", "HEALTH_ENTHUSIAST" });
 
             migrationBuilder.InsertData(
                 table: "InitialCalorieIntakeLists",
