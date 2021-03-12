@@ -314,7 +314,7 @@ namespace CalorieTracker.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "cabe0efa-8987-4588-8bfb-676ffb2967e2", "e2f47be5-2f02-4f15-a527-b818c48ce11d", "Health_Enthusiast", "HEALTH_ENTHUSIAST" });
+                values: new object[] { "28fa1bd8-c99d-4089-9ca6-dd45fcea179d", "cdb5fc1f-814f-4ae8-8323-970a742bcf76", "Health_Enthusiast", "HEALTH_ENTHUSIAST" });
 
             migrationBuilder.InsertData(
                 table: "InitialCalorieIntakeLists",

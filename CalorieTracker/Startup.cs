@@ -49,13 +49,7 @@ namespace CalorieTracker
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-            services.AddTransient<IEmailSender, SendGridEmailSender>();
-            services.Configure<SendGridEmailSenderOptions>(options =>
-            {
-                options.ApiKey = Configuration["ExternalProviders:SendGrid:ApiKey"];
-                options.SenderEmail = Configuration["ExternalProviders:SendGrid:SenderEmail"];
-                options.SenderName = Configuration["ExternalProviders:SendGrid:SenderName"];
-            });
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

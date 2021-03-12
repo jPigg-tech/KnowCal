@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace CalorieTracker.Models
 {
+    using CalorieTracker.Views.Health_Enthusiast;
     using SendGrid;
     using SendGrid.Helpers.Mail;
     using System;
@@ -21,7 +22,9 @@ namespace CalorieTracker.Models
 
             public async Task Execute(string To)
             {
-                var apiKey = "";
+                //APIKey sendGridKey = new APIKey();
+                //var apiKey = sendGridKey.ToString();
+                var apiKey = " ";
                 var client = new SendGridClient(apiKey);
                 var from = new EmailAddress("jeffpigg5@gmail.com", "Jeff Pigg");
                 var subject = "Welcome To KnowCal";

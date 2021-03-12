@@ -27,7 +27,10 @@ namespace CalorieTracker.Models
 
         [Display(Name = "Serving Size")]
         public int ServingSize { get; set; }
+
         [Display(Name = "Today's Date")]
+        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
+        [DataType(DataType.Date)]
         public DateTime TodaysDate { get; set; }
 
         public int? DailyCaloriesAccumulated { get; set; }
