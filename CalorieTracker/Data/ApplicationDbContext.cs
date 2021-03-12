@@ -17,6 +17,7 @@ namespace CalorieTracker.Data
         public DbSet<NewsLetter> NewsLetters { get; set; }
         public DbSet<InitialCalorieIntakeList> InitialCalorieIntakeLists { get; set; }
         public DbSet<Meal> Meals { get; set; }
+        public DbSet<Emailmodel> Emails { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

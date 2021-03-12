@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CalorieTracker.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210311142812_CC")]
+    [Migration("20210311202229_CC")]
     partial class CC
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +20,21 @@ namespace CalorieTracker.Migrations
                 .HasAnnotation("ProductVersion", "3.1.12")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("CalorieTracker.Models.Emailmodel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("To")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Emails");
+                });
 
             modelBuilder.Entity("CalorieTracker.Models.Food", b =>
                 {
@@ -306,8 +321,8 @@ namespace CalorieTracker.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5ad2de89-84ff-4363-a5a4-8b7f2cb5dd91",
-                            ConcurrencyStamp = "a1b2b398-5f86-4e1e-b508-f34329725fee",
+                            Id = "cabe0efa-8987-4588-8bfb-676ffb2967e2",
+                            ConcurrencyStamp = "e2f47be5-2f02-4f15-a527-b818c48ce11d",
                             Name = "Health_Enthusiast",
                             NormalizedName = "HEALTH_ENTHUSIAST"
                         });

@@ -47,6 +47,19 @@ namespace CalorieTracker.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Emails",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    To = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Emails", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Foods",
                 columns: table => new
                 {
@@ -301,7 +314,7 @@ namespace CalorieTracker.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "5ad2de89-84ff-4363-a5a4-8b7f2cb5dd91", "a1b2b398-5f86-4e1e-b508-f34329725fee", "Health_Enthusiast", "HEALTH_ENTHUSIAST" });
+                values: new object[] { "cabe0efa-8987-4588-8bfb-676ffb2967e2", "e2f47be5-2f02-4f15-a527-b818c48ce11d", "Health_Enthusiast", "HEALTH_ENTHUSIAST" });
 
             migrationBuilder.InsertData(
                 table: "InitialCalorieIntakeLists",
@@ -409,6 +422,9 @@ namespace CalorieTracker.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Emails");
 
             migrationBuilder.DropTable(
                 name: "FoodDiaries");

@@ -1,9 +1,12 @@
 ﻿using CalorieTracker.Data;
 using CalorieTracker.Models;
+using CalorieTracker.Models.Example;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -422,7 +425,8 @@ namespace CalorieTracker.Controllers
                 foodDiary.FatAmount *= foodDiary.ServingSize;
                 foodDiary.ProteinAmount *= foodDiary.ServingSize;
                 foodDiary.TodaysDate = foodDiary.TodaysDate.Date;
-                _context.Add(foodDiary);
+                
+                _context.Add(foodDiary);                
                 _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
@@ -484,6 +488,37 @@ namespace CalorieTracker.Controllers
             var food = _context.FoodDiaries.SingleOrDefault(m => m.Id == id);
             _context.FoodDiaries.Remove(food);
             _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+        public IActionResult SendgridEmailSubmit()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult SendgridEmailSubmit(Emailmodel emailmodel)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var healthEnthusiast = _context.Health_Enthusiasts.Where(c => c.IdentityUserId ==
+            userId).FirstOrDefault();
+            emailmodel.To = healthEnthusiast.Email;
+            _context.Emails.Add(emailmodel);
+            _context.SaveChanges();
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SendgridEmailSubmit2(Emailmodel emailmodel)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var healthEnthusiast = _context.Health_Enthusiasts.Where(c => c.IdentityUserId ==
+            userId).FirstOrDefault();
+            emailmodel.To = healthEnthusiast.Email;
+
+            ViewData["Message"] = "Email Sent!!!...";
+            Example emailexample = new Example();
+            await emailexample.Execute(emailmodel.To);
+
             return RedirectToAction(nameof(Index));
         }
     }
