@@ -319,8 +319,8 @@ namespace CalorieTracker.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "28fa1bd8-c99d-4089-9ca6-dd45fcea179d",
-                            ConcurrencyStamp = "cdb5fc1f-814f-4ae8-8323-970a742bcf76",
+                            Id = "6c6abc74-7c33-46e7-b50c-a5e91d7cd70c",
+                            ConcurrencyStamp = "518ab102-b6be-4718-82a1-c99fa8ffb770",
                             Name = "Health_Enthusiast",
                             NormalizedName = "HEALTH_ENTHUSIAST"
                         });

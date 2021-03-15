@@ -17,13 +17,13 @@ namespace CalorieTracker.Controllers
 {
     public class Health_EnthusiastController : Controller
     {
-        private readonly IEmailSender _emailSender;
+        private readonly NutritionixService _nutritionixService;
         private readonly ApplicationDbContext _context;
 
-        public Health_EnthusiastController(ApplicationDbContext context, IEmailSender emailSender)
+        public Health_EnthusiastController(ApplicationDbContext context, NutritionixService nutritionixService)
         {
             _context = context;
-            _emailSender = emailSender;
+            _nutritionixService = nutritionixService;
         }
 
         // GET: HomeController1
@@ -146,7 +146,6 @@ namespace CalorieTracker.Controllers
                 return View();
             }
         }
-
         // GET: HomeController1/Delete/5
         public ActionResult Delete(int id)
         {
@@ -168,41 +167,11 @@ namespace CalorieTracker.Controllers
             }
         }
 
-        //public IActionResult CreateGoals(int id)
-        // {
-        //    //var editGoalWeight = _context.Goals.Where(c => c.HealthEnthusiastId == id).SingleOrDefault();
-        //    //return View(editGoalWeight);
-        //    return View();
-        //}
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult CreateGoals(Goals weightGoal, int id)
-        //{
-        //    try
-        //    {
-        //        // weightGoal.HealthEnthusiastId = id;
-        //        weightGoal.HealthEnthusiastId = id;
-
-        //       // weightGoal = _context.Goals.Single(m => m.HealthEnthusiastId == healthEnthusiast.Id);
-
-        //        _context.Goals.Add(weightGoal);
-        //        _context.SaveChanges();
-        //        return RedirectToAction("GetActivity", new { id = weightGoal.HealthEnthusiastId });
-                
-        //    }
-        //    catch
-        //    {
-        //        return RedirectToAction("GetActivity", new { id = weightGoal.HealthEnthusiastId });
-        //    }
-        //}
-
         public IActionResult GetInitialCalorieIntake(int id)
         {
             var initialCals = _context.InitialCalorieIntakeLists.ToList();
             
-            return View(initialCals);
-            
+            return View(initialCals);            
         }
         public IActionResult AddInitialCalorieIntake(int id)
         {
@@ -221,7 +190,7 @@ namespace CalorieTracker.Controllers
                 userId).FirstOrDefault();
 
                 var caloriesInDb = _context.InitialCalorieIntakeLists.Single(m => m.Id == initialCals.Id);
-                // gotta get the id from the eggs to follow thru from the GET 
+
                 var calorieInput = caloriesInDb.Calories;
                 healthEnthusiast.InitialCalorieIntake += calorieInput;
                 _context.SaveChanges();
@@ -236,9 +205,6 @@ namespace CalorieTracker.Controllers
         public IActionResult GetActivity(int id)
         {
             // On a scale 1-3 how active are you? One being not very active and 3 being active 
-
-            //var editActivity = _context.Goals.Where(c => c.HealthEnthusiastId == id).SingleOrDefault();
-
             return View();
         }
 
@@ -403,7 +369,6 @@ namespace CalorieTracker.Controllers
                 Meals = new SelectList(meals, "Id", "Name")
             };
             return View(foodDiary);
-            //return View();
         }
 
         // POST: HomeController1/Create
@@ -411,7 +376,6 @@ namespace CalorieTracker.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateFoodDiary(FoodDiary foodDiary)
         {
-
             try
             {
                 var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -421,6 +385,7 @@ namespace CalorieTracker.Controllers
                 foodDiary.HealthEnthusiastId = healthEnthusiast.Id;                
                 foodDiary.Meal = _context.Meals.Where(m => m.Id == foodDiary.MealId).FirstOrDefault();
                 foodDiary.Meal.Name = foodDiary.Meal.Name;
+
                 foodDiary.CalorieAmmount *= foodDiary.ServingSize;
                 foodDiary.FatAmount *= foodDiary.ServingSize;
                 foodDiary.ProteinAmount *= foodDiary.ServingSize;
@@ -455,31 +420,66 @@ namespace CalorieTracker.Controllers
             int mealThreeCalories = 0;
             int mealFourCalories = 0;
             int caloriesAccumulated = 0;
-            
+            List<string> dates = new List<string>();
+            string stringifiedDates = " ";
+            List<string> datesString = new List<string>();
+            //Array array = new Array[datesString.Count];
+            int dayOneCals = 0;
+            int dayTwoCals = 0;
+            int dayThreeCals = 0;
             foreach (var item in healthEnthusiastFoodDiary)
             {                
-                if (item.MealId == 1)
+                if (item.MealId == 1 && item.TodaysDate == DateTime.Today)
                 {
                     mealOneCalories += item.CalorieAmmount;                    
                     ViewBag.One = mealOneCalories;
                 }
-                if (item.MealId == 2)
+                if (item.MealId == 2 && item.TodaysDate == DateTime.Today)
                 {
                     mealTwoCalories += item.CalorieAmmount;
                     ViewBag.Two = mealTwoCalories;
                 }
-                if (item.MealId == 3)
+                if (item.MealId == 3 && item.TodaysDate == DateTime.Today)
                 {
                     mealThreeCalories += item.CalorieAmmount;
                     ViewBag.Three = mealThreeCalories;
                 }
-                if (item.MealId == 4)
+                if (item.MealId == 4 && item.TodaysDate == DateTime.Today)
                 {
                     mealFourCalories += item.CalorieAmmount;
                     ViewBag.Four = mealFourCalories;                    
                 }
-                caloriesAccumulated += item.CalorieAmmount;
-                ViewBag.Five = caloriesAccumulated;
+                if (item.TodaysDate == DateTime.Today)
+                {
+                    caloriesAccumulated += item.CalorieAmmount;
+                    ViewBag.Five = caloriesAccumulated;
+                }
+                stringifiedDates = item.TodaysDate.ToShortDateString();
+                dates.Add(stringifiedDates);
+                datesString = dates.Distinct().ToList();
+                var array = datesString.ToArray();
+                ViewBag.dates = array;
+
+                foreach (var date in datesString)
+                {
+                    if (item.TodaysDate.ToShortDateString() == datesString[0])
+                    {
+                        dayOneCals += item.CalorieAmmount;
+                        ViewBag.Day1 = dayOneCals;
+                        continue;
+                    }
+                    if (item.TodaysDate.ToShortDateString() == datesString[1])
+                    {
+                        dayTwoCals += item.CalorieAmmount;
+                        ViewBag.Day2 = dayTwoCals / 2;
+                        continue;
+                    }
+                    if (item.TodaysDate.ToShortDateString() == datesString[2])
+                    {
+                        dayThreeCals += item.CalorieAmmount;
+                        ViewBag.Day3 = dayThreeCals / 3;
+                    }
+                }
             }
             return View();
         }
@@ -520,6 +520,18 @@ namespace CalorieTracker.Controllers
             await emailexample.Execute(emailmodel.To);
 
             return RedirectToAction(nameof(Index));
+        }
+
+        //public IActionResult FindNutritionItem(string SearchString)
+        //{            
+        //    return View();
+        //}
+        //[HttpPost]
+        public async Task<IActionResult> FindNutritionItem([FromServices] NutritionixService nutritionixService, string SearchString)
+        {
+            
+            NutritionixFoodItem nutritionixFoodItem = await nutritionixService.GetSearchedNutritionItem(SearchString);
+            return View(nutritionixFoodItem);
         }
     }
 }

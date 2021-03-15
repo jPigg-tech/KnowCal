@@ -5,20 +5,26 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>View Your Progress</h1>
+<h1>Visualizing Your Progress</h1>
 
-@*<p>
-        <a asp-action="Create">Create New</a>
-
-    }
-        </tbody>
-    </table>*@
-
-<div class="chart-container" style="position: relative; height:40vh; width:80vw">
-    <canvas id="myChart"></canvas>
+<div class="text-left">
+    <p> </p>
+    <p> </p>
+    
 </div>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-<script>
+
+<div class="text-left">
+    <p> </p>
+    <p>This first chart a bar chart comparing your initial calorie intake<p>
+    <p>to today's calorie intake and KnowCal's recomendation for calorie intake!</p>
+</div>
+
+<div class="center">
+    <div class="chart-container" style="position: relative; height:40vh; width:80vh">
+        <canvas id="myChart"></canvas>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script>
 
     var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {
@@ -59,14 +65,21 @@
 
         }
     });
-</script>
-
-
-<div class="chart-container" style="position: relative; height:50vh; width:100vw">
-    <canvas id="myChart2"></canvas>
+    </script>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-<script>
+
+<div class="text-left">
+    <p> </p>
+    <p>The second chart is a pie chart showing the different<p>
+    <p>calorie amounts you consumed today per meal and snacks! </p>
+</div>
+
+
+    <div class="chart-container" style="position: relative; height:50vh; width:100vw">
+        <canvas id="myChart2"></canvas>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script>
 
     var ctx = document.getElementById('myChart2').getContext('2d');
     var myChart2 = new Chart(ctx, {
@@ -106,24 +119,29 @@
             }
         }
     });
-</script>
+    </script>
 
+    <div class="text-left">
+        <p>The third and final chart is a line chart showing the different<p>
+        <p>days of the week and how many calories you have taken in on those days.</p>
+    </div>
 
-<div class="chart-container" style="position: relative; height:50vh; width:100vw">
-    <canvas id="myChart3"></canvas>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-<script>
+    <div class="chart-container" style="position: relative; height:50vh; width:100vw">
+        <canvas id="myChart3"></canvas>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script>
 
     var ctx = document.getElementById('myChart3').getContext('2d');
     var myChart3 = new Chart(ctx, {
-        type: 'bar',
+        type: 'line',
         data: {
-            labels: ['Food'],
+            labels: ['@ViewBag.dates[0]', '@ViewBag.dates[1]', '@ViewBag.dates[2]', 'Today'],
             datasets: [{
                 label: 'Number of Calories',
-                data: [@ViewBag.Five],
-                backgroundColor: [
+                data: [@ViewBag.Day1, @ViewBag.Day2, @ViewBag.Day3, @ViewBag.Five],
+                backgroundColor:
+                [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
                     'rgba(255, 206, 86, 0.2)',
@@ -131,7 +149,8 @@
                     'rgba(153, 102, 255, 0.2)',
                     'rgba(255, 159, 64, 0.2)'
                 ],
-                borderColor: [
+                borderColor:
+                [
                     'rgba(255, 99, 132, 1)',
                     'rgba(54, 162, 235, 1)',
                     'rgba(255, 206, 86, 1)',
@@ -145,8 +164,8 @@
         options: {
             responsive: false,
             scales: {
-                
-                
+
+
                 yAxes: [{
                     ticks: {
                         beginAtZero: true
@@ -155,19 +174,13 @@
             }
         }
     });
-</script>
+    </script>
 
 
 
 
 
 
-<body>
-
-
-
-</body>
-
-
+    
 
 

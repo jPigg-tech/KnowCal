@@ -8,11 +8,9 @@
 <h1>Welcome To KnowCal!</h1>
 
 <p>
-    <a asp-action="CreateFoodDiary" asp-route-id="@ViewBag.Id">Add Food</a>
+    <a class="btn btn-primary btn-md" asp-action="CreateFoodDiary" asp-route-id="@ViewBag.Id">Add Food</a>    
 </p>
-<p>
-    <a asp-action="SendgridEmailSubmit" asp-route-id="@ViewBag.Id">Email Subscription</a>
-</p>
+
 <table class="table">
     <thead>
         <tr>
@@ -60,7 +58,7 @@
                 @Html.DisplayFor(modelItem => item.ServingSize)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TodaysDate))
+                @Html.DisplayFor(modelItem => item.TodaysDate)
             </td>
 
             <td>

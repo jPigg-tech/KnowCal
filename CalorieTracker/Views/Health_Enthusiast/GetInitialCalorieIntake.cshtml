@@ -8,7 +8,8 @@
 <h1>Recent Food!</h1>
 
 <p>
-    <a asp-action="Index">Next Page</a>
+    <a class="btn btn-primary btn-md" asp-action="Index">Next Page </a>
+    
 </p>
 <p>In the last 2 weeks, which of these foods have you eaten? Press "Add" to all that apply, then press "Next Page"!</p>
 <p>(If you didn't have any of these foods, select the ones you're most likely to eat.)</p>
@@ -18,9 +19,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Calories)
-            </th>
+            
             <th></th>
         </tr>
     </thead>
@@ -30,9 +29,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Calories)
-            </td>
+            
             <td>
                 <a asp-action="AddInitialCalorieIntake" asp-route-id="@item.Id">Add</a>                
             </td>

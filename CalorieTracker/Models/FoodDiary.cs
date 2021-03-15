@@ -35,14 +35,6 @@ namespace CalorieTracker.Models
 
         public int? DailyCaloriesAccumulated { get; set; }
 
-        //private DateTime _timeLogged = DateTime.Now; 
-        //public DateTime TimeLogged
-        //{
-        //    get { return _timeLogged; }
-        //    set { _timeLogged = value; }
-        //}
-
-
         [ForeignKey("Health_Enthusiast")]
         public int HealthEnthusiastId { get; set; }
         public Health_Enthusiast Health_Enthusiast { get; set; }

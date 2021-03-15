@@ -5,11 +5,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
+<h1>KnowCal</h1>
 
 <div>
-    <h4>Health_Enthusiast</h4>
+    <h4>@Model.FirstName's Account Info</h4>
     <hr />
+    <p>If you haven't already click "Add Food" in the nav bar!</p>
+
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.FirstName)
