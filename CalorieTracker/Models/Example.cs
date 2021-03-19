@@ -31,7 +31,7 @@ namespace CalorieTracker.Models
                 var subject = "Welcome To KnowCal";
                 var to = new EmailAddress(To);
                 var plainTextContent = "Thanks for subscribing to KnowCal's E-Mail subscription.";
-                var htmlContent = "<strong>and easy to do anywhere, even with C#</strong>";
+                var htmlContent = "<strong>This is your first Email from KnowCal</strong>";
                 var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
                 var response = await client.SendEmailAsync(msg);
             }

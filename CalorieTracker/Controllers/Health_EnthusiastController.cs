@@ -175,8 +175,8 @@ namespace CalorieTracker.Controllers
         }
         public IActionResult AddInitialCalorieIntake(int id)
         {
-            
-            return View();            
+
+            return View();
         }
 
         [HttpPost]
@@ -533,5 +533,7 @@ namespace CalorieTracker.Controllers
             NutritionixFoodItem nutritionixFoodItem = await nutritionixService.GetSearchedNutritionItem(SearchString);
             return View(nutritionixFoodItem);
         }
+        // Set up View for this action. 
+        // Using jQuery ajax library 
     }
 }
