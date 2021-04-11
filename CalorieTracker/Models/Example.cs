@@ -25,7 +25,7 @@ namespace CalorieTracker.Models
                 //APIKey sendGridKey = new APIKey();
                 //var apiKey = sendGridKey.ToString();
 
-                var apiKey = "";
+                var apiKey = "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";
                 var client = new SendGridClient(apiKey);
                 var from = new EmailAddress("jeffpigg5@gmail.com", "Jeff Pigg");
                 var subject = "Welcome To KnowCal";

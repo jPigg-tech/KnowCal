@@ -407,9 +407,16 @@ namespace CalorieTracker.Controllers
         }
         public ActionResult ViewProgress(int id)
         {
+            
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var healthEnthusiast = _context.Health_Enthusiasts.Where(c => c.IdentityUserId ==
             userId).FirstOrDefault();
+
+            //if (healthEnthusiast.InitialCalorieIntake == 0 || healthEnthusiast.InitialCalorieIntake == null)
+            //{
+            //    return RedirectToAction(nameof(GetInitialCalorieIntake));
+            //}
+            healthEnthusiast.InitialCalorieIntake = 2465; 
 
             ViewBag.Initial = healthEnthusiast.InitialCalorieIntake;
             ViewBag.Goal = healthEnthusiast.GoalCalories;
@@ -529,7 +536,7 @@ namespace CalorieTracker.Controllers
         //[HttpPost]
         public async Task<IActionResult> FindNutritionItem([FromServices] NutritionixService nutritionixService, string SearchString)
         {
-            
+            SearchString = "mcdouble";
             NutritionixFoodItem nutritionixFoodItem = await nutritionixService.GetSearchedNutritionItem(SearchString);
             return View(nutritionixFoodItem);
         }
