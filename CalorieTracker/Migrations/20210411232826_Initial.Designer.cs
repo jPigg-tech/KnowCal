@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CalorieTracker.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210407163650_KnowCal")]
-    partial class KnowCal
+    [Migration("20210411232826_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -321,8 +321,8 @@ namespace CalorieTracker.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "efb98601-6c15-4b05-be5a-dc7835c3706b",
-                            ConcurrencyStamp = "5bfcaace-01fb-4acf-9884-2af1ca0418dc",
+                            Id = "419e4da3-9ca4-4b7c-80ac-643839179376",
+                            ConcurrencyStamp = "3c4caaf5-5a57-46ac-94a9-f41cddece9c5",
                             Name = "Health_Enthusiast",
                             NormalizedName = "HEALTH_ENTHUSIAST"
                         });

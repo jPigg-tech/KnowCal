@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CalorieTracker.Migrations
 {
-    public partial class KnowCal : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -314,7 +314,7 @@ namespace CalorieTracker.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "efb98601-6c15-4b05-be5a-dc7835c3706b", "5bfcaace-01fb-4acf-9884-2af1ca0418dc", "Health_Enthusiast", "HEALTH_ENTHUSIAST" });
+                values: new object[] { "419e4da3-9ca4-4b7c-80ac-643839179376", "3c4caaf5-5a57-46ac-94a9-f41cddece9c5", "Health_Enthusiast", "HEALTH_ENTHUSIAST" });
 
             migrationBuilder.InsertData(
                 table: "InitialCalorieIntakeLists",

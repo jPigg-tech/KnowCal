@@ -99,5 +99,7 @@ namespace CalorieTracker.Data
                 }
                 );
         }
+
+        public DbSet<CalorieTracker.Models.SearchedFood> SearchedFood { get; set; }
     }
 }
