@@ -538,6 +538,9 @@ namespace CalorieTracker.Controllers
         {
             SearchString = "mcdouble";
             NutritionixFoodItem nutritionixFoodItem = await nutritionixService.GetSearchedNutritionItem(SearchString);
+
+            FoodDiary foodReturned.FoodName = nutritionixFoodItem.hits[0].fields.item_name;
+
             return View(nutritionixFoodItem);
         }
         // Set up View for this action. 
