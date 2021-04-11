@@ -539,9 +539,13 @@ namespace CalorieTracker.Controllers
             SearchString = "mcdouble";
             NutritionixFoodItem nutritionixFoodItem = await nutritionixService.GetSearchedNutritionItem(SearchString);
 
-            FoodDiary foodReturned.FoodName = nutritionixFoodItem.hits[0].fields.item_name;
+            SearchedFood foodReturned = new SearchedFood();
+            foodReturned.Name = nutritionixFoodItem.hits[0].fields.item_name;
+            foodReturned.BrandName = nutritionixFoodItem.hits[0].fields.brand_name;
+            foodReturned.Calories = (int)nutritionixFoodItem.hits[0].fields.nf_calories;
+            foodReturned.ServingSize = nutritionixFoodItem.hits[0].fields.nf_serving_size_qty;
 
-            return View(nutritionixFoodItem);
+            return View(foodReturned);
         }
         // Set up View for this action. 
         // Using jQuery ajax library 
