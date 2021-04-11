@@ -9,12 +9,15 @@
 
 <h4>Adding food to your Diary</h4>
 <hr />
- 
-<form class="FindNutritionItem" asp-action="FindNutritionItem">
-    <input id="SearchString" type="text" placeholder="Search.." name="search">
-    
-    <button type="submit"><i class="material-icons mdc-button__icon">search</i></button>
+
+
+<form asp-controller="Health_Enthusiast" asp-action="FindNutritionItem">
+    <p>
+        Search Food: <input type="text" name="SearchString" />
+        <input type="submit" value="Search" />
+    </p>
 </form>
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="CreateFoodDiary">

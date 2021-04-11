@@ -536,7 +536,7 @@ namespace CalorieTracker.Controllers
         //[HttpPost]
         public async Task<IActionResult> FindNutritionItem([FromServices] NutritionixService nutritionixService, string SearchString)
         {
-            SearchString = "mcdouble";
+            // SearchString = "mcdouble";
             NutritionixFoodItem nutritionixFoodItem = await nutritionixService.GetSearchedNutritionItem(SearchString);
 
             SearchedFood foodReturned = new SearchedFood();
